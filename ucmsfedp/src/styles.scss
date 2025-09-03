@@ -1,0 +1,61 @@
+/* === Global (Light) === */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #f7f9fc;    /* app background */
+  color: #0f172a;
+  overflow-x: hidden;
+}
+
+/* Angular Material containers */
+.mat-drawer-container, .mat-sidenav-container {
+  background: #f7f9fc !important;
+  overflow-x: hidden;
+}
+.mat-drawer-content, .mat-sidenav-content {
+  background: #f7f9fc !important;
+}
+.mat-drawer, .mat-sidenav {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-right: 1px solid #e5e7eb;
+}
+
+/* Lists */
+.mat-mdc-list-base { padding: 0 !important; background: transparent; }
+
+/* Material form fields (light) */
+.mat-mdc-form-field { color: #0f172a; }
+
+.mat-mdc-text-field-wrapper {
+  background-color: #ffffff !important;
+  border-radius: 10px;
+}
+
+.mat-mdc-input-element {
+  color: #0f172a !important;
+  caret-color: #2563eb !important;
+}
+
+.mat-mdc-floating-label {
+  color: #64748b !important;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+  color: #2563eb !important;
+}
+
+.mdc-notched-outline__leading,
+.mdc-notched-outline__trailing,
+.mdc-notched-outline__notch {
+  border-color: #e5e7eb !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  color: #ef4444 !important; /* error text */
+}
+
+table th{
+  text-align: start;
+}

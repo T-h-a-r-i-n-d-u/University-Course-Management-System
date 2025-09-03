@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+    db:
+        image: postgres:16-alpine
+        container_name: ucms-postgres
+        environment:
+            POSTGRES_DB: ${POSTGRES_DB:-ucmsdb}
+            POSTGRES_USER: ${POSTGRES_USER:-ucmsuser}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ucmspass}
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        ports:
+            - "5432:5432" # optional: expose for local tools
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB} || exit 1" ]
+            interval: 10s
+            timeout: 5s
+            retries: 10
+
+    backend:
+        build:
+            context: ./ucmsbedp
+            dockerfile: Dockerfile
+        container_name: ucms-backend
+        environment:
+            SPRING_PROFILES_ACTIVE: docker
+            SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-ucmsdb}
+            SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-ucmsuser}
+            SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-ucmspass}
+            APP_JWT_SECRET: ${APP_JWT_SECRET:-change-me}
+            # If you rely on absolute URLs instead of the /api proxy, set something like:
+            # APP_CORS: http://localhost:8080
+        depends_on:
+            db:
+                condition: service_healthy
+        ports:
+            - "8081:8081" # optional: expose backend directly for debugging
+
+    frontend:
+        build:
+            context: ./ucmsfedp
+            dockerfile: Dockerfile
+            args:
+                BASE_HREF: /
+        container_name: ucms-frontend
+        depends_on:
+            - backend
+        ports:
+            - "8080:80"
+
+volumes:
+    pgdata:

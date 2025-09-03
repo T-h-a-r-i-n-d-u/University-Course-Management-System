@@ -1,0 +1,30 @@
+:host { display: block; color: #0f172a; }
+
+.header {
+  display: flex; align-items: start; justify-content: space-between;
+  gap: 12px; margin-bottom: 14px;
+
+  .code  { color: #2563eb; font-weight: 800; font-size: 12px; }
+  .title { margin: 6px 0; color: #0f172a; font-weight: 800; }
+  .meta  { display: flex; gap: 12px; color: #475569; }
+  .actions { display: flex; gap: 8px; }
+}
+
+.panel {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 12px;
+
+  .desc  { color: #1f2937; }
+  .muted { color: #64748b; }
+}
+
+/* Loading skeleton (light) */
+.skeleton {
+  height: 200px;
+  background: linear-gradient(90deg, #f1f5f9 25%, #e5e7eb 37%, #f1f5f9 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }

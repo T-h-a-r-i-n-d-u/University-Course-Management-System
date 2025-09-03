@@ -1,0 +1,135 @@
+
+<section class="header">
+  <div class="hello">
+    <div class="hi">Hello, {{ fullName }}</div>
+    <div class="sub">Welcome back • {{ now | date:'mediumDate' }}</div>
+  </div>
+
+  <div class="roles">
+    <span class="chip" *ngFor="let r of roles">{{ r }}</span>
+  </div>
+</section>
+
+<section class="quick-actions">
+  <button mat-raised-button color="primary" (click)="go('/courses')">
+    <mat-icon>school</mat-icon>
+    <span>Browse Courses</span>
+  </button>
+
+  <button mat-raised-button color="accent" *ngIf="isStudent()" (click)="go('/enrollments')">
+    <mat-icon>how_to_reg</mat-icon>
+    <span>My Enrollments</span>
+  </button>
+
+  <button mat-raised-button color="accent" *ngIf="isStudent()" (click)="go('/results')">
+    <mat-icon>grade</mat-icon>
+    <span>My Results</span>
+  </button>
+
+  <button mat-raised-button color="warn" *ngIf="isAdmin()" (click)="go('/admin/report')">
+    <mat-icon>analytics</mat-icon>
+    <span>Admin Report</span>
+  </button>
+</section>
+
+<!-- Metrics Grid -->
+<section class="metrics" *ngIf="isAdmin()">
+  <mat-card class="metric" *ngIf="!adminLoading; else adminSkeleton">
+    <div class="kpi">
+      <div class="num">{{ admin?.totalUsers || 0 }}</div>
+      <div class="lbl">Users</div>
+    </div>
+  </mat-card>
+
+  <mat-card class="metric" *ngIf="!adminLoading">
+    <div class="kpi">
+      <div class="num">{{ admin?.totalCourses || 0 }}</div>
+      <div class="lbl">Courses</div>
+    </div>
+  </mat-card>
+
+  <mat-card class="metric" *ngIf="!adminLoading">
+    <div class="kpi">
+      <div class="num">{{ admin?.totalAssignments || 0 }}</div>
+      <div class="lbl">Assignments</div>
+    </div>
+  </mat-card>
+
+  <mat-card class="metric" *ngIf="!adminLoading">
+    <div class="kpi">
+      <div class="num">{{ admin?.pendingUserApprovals || 0 }}</div>
+      <div class="lbl">Pending Users</div>
+    </div>
+  </mat-card>
+
+  <ng-template #adminSkeleton>
+    <mat-card class="metric skeleton" *ngFor="let _ of [1,2,3,4]"></mat-card>
+  </ng-template>
+</section>
+
+<section class="metrics" *ngIf="isStudent()">
+  <mat-card class="metric" *ngIf="!studentLoading; else studentSkeleton">
+    <div class="kpi">
+      <div class="num">{{ myEnrollments.length }}</div>
+      <div class="lbl">My Enrollments</div>
+    </div>
+  </mat-card>
+
+  <mat-card class="metric" *ngIf="!studentLoading">
+    <div class="kpi">
+      <div class="num">{{ (myResults || []).length }}</div>
+      <div class="lbl">Results</div>
+    </div>
+  </mat-card>
+
+  <mat-card class="metric">
+    <div class="kpi">
+      <div class="num">{{ courses.length }}</div>
+      <div class="lbl">Available Courses</div>
+    </div>
+  </mat-card>
+
+  <ng-template #studentSkeleton>
+    <mat-card class="metric skeleton" *ngFor="let _ of [1,2,3]"></mat-card>
+  </ng-template>
+</section>
+
+<!-- Two-column: Courses preview + Recent activity -->
+<section class="grid-two">
+  <mat-card class="panel">
+    <mat-card-header>
+      <mat-card-title>Courses</mat-card-title>
+      <mat-card-subtitle *ngIf="coursesLoading">Loading…</mat-card-subtitle>
+      <span class="spacer"></span>
+      <button mat-stroked-button (click)="go('/courses')">View all</button>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="courses">
+        <div class="course" *ngFor="let c of courses">
+          <div class="code">{{ c.code }}</div>
+          <div class="title" [matTooltip]="c.title">{{ c.title }}</div>
+        </div>
+        <div class="empty" *ngIf="!coursesLoading && courses.length === 0">
+          No courses available yet.
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="panel">
+    <mat-card-header>
+      <mat-card-title>Recent activity</mat-card-title>
+      <mat-card-subtitle *ngIf="isStudent()">Results updated, new assignments, enrollments</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="isAdmin()">User approvals, new notes, submissions</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <ul class="activity">
+        <li *ngIf="isStudent() && myResults.length">You have {{ myResults.length }} published result(s).</li>
+        <li *ngIf="isStudent() && myEnrollments.length">You’re enrolled in {{ myEnrollments.length }} course(s).</li>
+        <li *ngIf="isAdmin() && admin">There are {{ admin.pendingUserApprovals }} user(s) awaiting approval.</li>
+        <li *ngIf="isAdmin() && admin">System has {{ admin.totalSubmissions }} submission(s) total.</li>
+        <li *ngIf="!(isAdmin() || isStudent())">Welcome! Choose an action on the left.</li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+</section>

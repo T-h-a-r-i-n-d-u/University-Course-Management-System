@@ -1,0 +1,23 @@
+
+<h2>Pending User Approvals</h2>
+
+<mat-card class="panel" *ngIf="!loading">
+  <table class="tab">
+    <thead><tr><th>Username</th><th>Name</th><th>Email</th><th>Requested</th><th class="right">Actions</th></tr></thead>
+    <tbody>
+    <tr *ngFor="let u of data">
+      <td>{{ u.username }}</td>
+      <td>{{ u.fullName }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.createdAt | date:'medium' }}</td>
+      <td class="right">
+        <button mat-stroked-button color="primary" (click)="approve(u)">Approve</button>
+        <button mat-stroked-button color="warn" (click)="reject(u)">Reject</button>
+      </td>
+    </tr>
+    <tr *ngIf="!data.length"><td colspan="5" class="muted">No pending users 🎉</td></tr>
+    </tbody>
+  </table>
+</mat-card>
+
+<mat-card class="skeleton" *ngIf="loading"></mat-card>

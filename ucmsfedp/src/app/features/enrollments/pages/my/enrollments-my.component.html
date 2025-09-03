@@ -1,0 +1,16 @@
+<h2>My Enrollments</h2>
+<mat-card class="panel" *ngIf="!loading">
+  <table class="notes">
+    <thead><tr><th>Course</th><th>Status</th><th>Requested</th><th>Decided</th></tr></thead>
+    <tbody>
+    <tr *ngFor="let e of data">
+      <td>{{ e.courseId }}</td>
+      <td><span class="badge" [class.approved]="e.status==='APPROVED'" [class.rejected]="e.status==='REJECTED'">{{ e.status }}</span></td>
+      <td>{{ e.createdAt | date:'medium' }}</td>
+      <td>{{ e.decidedAt ? (e.decidedAt | date:'medium') : '-' }}</td>
+    </tr>
+    <tr *ngIf="!data.length"><td colspan="4" class="muted">No enrollments yet.</td></tr>
+    </tbody>
+  </table>
+</mat-card>
+<mat-card class="skeleton" *ngIf="loading"></mat-card>

@@ -1,0 +1,42 @@
+<ng-container *ngIf="!loading && c; else skel">
+  <div class="header">
+    <div>
+      <div class="code">{{ c.code }}</div>
+      <h2 class="title">{{ c.title }}</h2>
+      <div class="meta" *ngIf="c.semester || c.credits">
+        <span *ngIf="c.semester">Semester: {{ c.semester }}</span>
+        <span *ngIf="c.credits">Credits: {{ c.credits }}</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button mat-flat-button color="accent" *ngIf="isStudent()" (click)="enroll()">Request Enroll</button>
+      <button mat-stroked-button *ngIf="auth.hasRole('ADMIN')" (click)="assignLecturer()">
+        <mat-icon>person_add</mat-icon> Assign Lecturer
+      </button>
+      <button mat-stroked-button [routerLink]="['/courses', id, 'assignments']">
+        <mat-icon>assignment</mat-icon> Assignments
+      </button>
+      <button mat-stroked-button [routerLink]="['/courses', id, 'notes']">
+        <mat-icon>description</mat-icon> Notes
+      </button>
+      <button mat-stroked-button *ngIf="isAdmin()" (click)="edit()"><mat-icon>edit</mat-icon> Edit</button>
+      <button mat-stroked-button color="warn" *ngIf="isAdmin()" (click)="remove()"><mat-icon>delete</mat-icon> Delete</button>
+    </div>
+  </div>
+
+  <mat-card class="panel">
+    <mat-card-title>About this course</mat-card-title>
+    <mat-card-content>
+      <p class="desc" *ngIf="c.description; else noDesc">{{ c.description }}</p>
+      <ng-template #noDesc><p class="muted">No description provided.</p></ng-template>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+<button mat-stroked-button [routerLink]="['/courses', id, 'assignments']">
+  <mat-icon>assignment</mat-icon>
+  Assignments
+</button>
+<ng-template #skel>
+  <mat-card class="skeleton"></mat-card>
+</ng-template>

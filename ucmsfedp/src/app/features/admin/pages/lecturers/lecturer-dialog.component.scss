@@ -1,0 +1,47 @@
+:host {
+  display: block;
+  color: #0f172a;
+}
+
+/* Form grid inside dialog */
+.form {
+  display: grid;
+  gap: 14px;
+  width: 420px;
+  max-width: 90vw;
+  margin-top: 8px;
+}
+
+/* Make Material form fields consistent */
+mat-form-field {
+  width: 100%;
+}
+
+/* Dialog header */
+::ng-deep .mat-mdc-dialog-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+/* Dialog content */
+::ng-deep .mat-mdc-dialog-content {
+  padding-top: 8px !important;
+}
+
+/* Dialog actions */
+::ng-deep .mat-mdc-dialog-actions {
+  padding: 12px 0 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Buttons */
+button[mat-stroked-button] {
+  border-radius: 8px;
+}
+button[mat-raised-button] {
+  border-radius: 8px;
+  font-weight: 600;
+}
+

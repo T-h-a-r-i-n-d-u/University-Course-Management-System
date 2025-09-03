@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/ucmsdb
+    username: ucms
+    password: ucms
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+app:
+  upload:
+    # single base dir the app writes to
+    dir: ${APP_UPLOAD_DIR:/data/uploads}

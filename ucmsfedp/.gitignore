@@ -1,0 +1,8 @@
+# root .gitignore
+**/node_modules/
+**/dist/
+**/.angular/cache/
+ucmsbedp/target/
+**/.idea/
+**/.vscode/
+.env

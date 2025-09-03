@@ -1,0 +1,28 @@
+<div class="auth-wrapper">
+  <mat-card class="auth-card">
+    <div class="auth-header">
+      <h1>Welcome back</h1>
+      <p>Sign in to manage your courses</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="auth-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username"/>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password"/>
+      </mat-form-field>
+
+      <button class="w-full" mat-raised-button color="primary" [disabled]="form.invalid || loading">
+        {{ loading ? 'Signing in…' : 'Sign in' }}
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <a routerLink="/auth/register">Create an account</a>
+    </div>
+  </mat-card>
+</div>

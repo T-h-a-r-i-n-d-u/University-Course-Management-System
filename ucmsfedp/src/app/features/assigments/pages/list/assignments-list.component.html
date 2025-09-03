@@ -1,0 +1,25 @@
+<h2>Assignments for Course {{ courser?.code }} - {{courser?.title}}</h2>
+
+
+<div class="actions" *ngIf="isLecturer()">
+  <button mat-raised-button color="primary" (click)="add()"><mat-icon>add</mat-icon> Add Assignment</button>
+</div>
+
+<mat-card class="panel" *ngIf="!loading">
+  <table class="tab">
+    <thead><tr><th>Title</th><th>Deadline</th><th>Created</th><th class="right">Actions</th></tr></thead>
+    <tbody>
+    <tr *ngFor="let a of data">
+      <td>{{ a.title }}</td>
+      <td>{{ a.deadline | date:'medium' }}</td>
+      <td>{{ a.createdAt ? (a.createdAt | date:'medium') : '-' }}</td>
+      <td class="right">
+        <button mat-stroked-button color="primary" (click)="view(a)"><mat-icon>visibility</mat-icon> View</button>
+        <button mat-stroked-button color="accent" *ngIf="isLecturer()" (click)="edit(a)"><mat-icon>edit</mat-icon> Edit</button>
+      </td>
+    </tr>
+    <tr *ngIf="!data.length"><td colspan="4" class="muted">No assignments yet.</td></tr>
+    </tbody>
+  </table>
+</mat-card>
+<mat-card class="skeleton" *ngIf="loading"></mat-card>

@@ -1,0 +1,22 @@
+
+<section class="header">
+  <h2>Lecturers</h2>
+  <button mat-raised-button color="primary" (click)="openCreate()">Add Lecturer</button>
+</section>
+
+<mat-card class="panel" *ngIf="!loading">
+  <table class="tab">
+    <thead><tr><th>Username</th><th>Name</th><th>Email</th><th>Approved</th><th>Roles</th></tr></thead>
+    <tbody>
+    <tr *ngFor="let u of data">
+      <td>{{ u.username }}</td>
+      <td>{{ u.fullName }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.approved ? 'Yes' : 'No' }}</td>
+      <td>{{ u.roles.join(', ') }}</td>
+    </tr>
+    <tr *ngIf="!data.length"><td colspan="5" class="muted">No lecturers yet.</td></tr>
+    </tbody>
+  </table>
+</mat-card>
+<mat-card class="skeleton" *ngIf="loading"></mat-card>

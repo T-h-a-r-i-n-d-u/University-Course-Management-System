@@ -1,0 +1,11 @@
+
+:host { display:block; color:#0f172a; }
+.header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.panel { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:8px; }
+.tab { width:100%; border-collapse:collapse; }
+.tab th, .tab td { padding:10px; border-bottom:1px solid #eef2f7; }
+.muted { color:#64748b; text-align:center; }
+.skeleton { height:120px; background:linear-gradient(90deg,#f1f5f9 25%,#e5e7eb 37%,#f1f5f9 63%); background-size:400% 100%; animation: shimmer 1.4s ease infinite; border-radius:12px; border:1px solid #e5e7eb; }
+@keyframes shimmer { 0%{background-position:200% 0;} 100%{background-position:-200% 0;} }
+
+.form { display:grid; gap:12px; width:420px; max-width: 86vw; }

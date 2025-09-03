@@ -1,0 +1,40 @@
+<div class="auth-wrapper">
+  <mat-card class="auth-card">
+    <div class="auth-header">
+      <h1>Create your account</h1>
+      <p>Submit details for approval</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="auth-form">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Full name</mat-label>
+        <input matInput formControlName="fullName" />
+        <mat-error *ngIf="form.controls['fullName'].invalid && form.controls['fullName'].touched">Required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" />
+        <mat-error *ngIf="form.controls['email'].invalid && form.controls['email'].touched">Invalid email</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-hint align="end">Min 6 characters</mat-hint>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="w-full" [disabled]="form.invalid || loading">
+        {{ loading ? 'Submitting…' : 'Register' }}
+      </button>
+      <button mat-raised-button color="primary" class="w-full" (click)="onBackclick()">
+        Back
+      </button>
+    </form>
+  </mat-card>
+</div>

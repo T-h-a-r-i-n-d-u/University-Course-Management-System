@@ -1,0 +1,25 @@
+<h2>Admin Report</h2>
+
+<div class="metrics" *ngIf="data">
+  <mat-card class="metric"><div class="kpi"><div class="num">{{ data.totalUsers }}</div><div class="lbl">Users</div></div></mat-card>
+  <mat-card class="metric"><div class="kpi"><div class="num">{{ data.totalStudents }}</div><div class="lbl">Students</div></div></mat-card>
+  <mat-card class="metric"><div class="kpi"><div class="num">{{ data.totalLecturers }}</div><div class="lbl">Lecturers</div></div></mat-card>
+  <mat-card class="metric"><div class="kpi"><div class="num">{{ data.totalCourses }}</div><div class="lbl">Courses</div></div></mat-card>
+</div>
+
+<mat-card class="panel" *ngIf="data">
+  <table class="notes">
+    <thead><tr><th>Code</th><th>Title</th><th>Assignments</th><th>Notes</th><th>Enrolls</th><th>Submissions</th><th>Results</th></tr></thead>
+    <tbody>
+    <tr *ngFor="let c of data.courses">
+      <td>{{ c.code }}</td>
+      <td>{{ c.title }}</td>
+      <td>{{ c.assignments }}</td>
+      <td>{{ c.notes }}</td>
+      <td>{{ c.approvedEnrolls }}</td>
+      <td>{{ c.submissions }}</td>
+      <td>{{ c.results }}</td>
+    </tr>
+    </tbody>
+  </table>
+</mat-card>

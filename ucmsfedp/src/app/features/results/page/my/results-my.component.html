@@ -1,0 +1,16 @@
+<h2>My Results</h2>
+<mat-card class="panel" *ngIf="!loading">
+  <table class="notes">
+    <thead><tr><th>Course</th><th>Score</th><th>Grade</th><th>Updated</th></tr></thead>
+    <tbody>
+    <tr *ngFor="let r of data">
+      <td>{{ r.courseId }}</td>
+      <td>{{ r.totalScore }}</td>
+      <td>{{ r.grade }}</td>
+      <td>{{ r.updatedAt | date:'medium' }}</td>
+    </tr>
+    <tr *ngIf="!data.length"><td colspan="4" class="muted">No results yet.</td></tr>
+    </tbody>
+  </table>
+</mat-card>
+<mat-card class="skeleton" *ngIf="loading"></mat-card>

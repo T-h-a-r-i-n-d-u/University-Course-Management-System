@@ -1,0 +1,36 @@
+
+<h2>Lecture Notes</h2>
+
+<!-- uploader (lecturer only) -->
+<mat-card class="panel" *ngIf="auth.hasRole('LECTURER') || auth.hasRole('ADMIN')">
+  <mat-card-header><mat-card-title>Upload note</mat-card-title></mat-card-header>
+  <mat-card-content>
+    <div class="row">
+      <mat-form-field appearance="outline" class="wfull">
+        <mat-label>Title</mat-label>
+        <input matInput [(ngModel)]="title">
+      </mat-form-field>
+      <input type="file" (change)="onFile($event)">
+      <button mat-raised-button color="primary" [disabled]="uploading" (click)="upload()">Upload</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="panel">
+  <table class="tab" *ngIf="!loading">
+    <thead><tr><th>Title</th><th>File</th><th>Uploaded</th><th>By</th><th class="right">Actions</th></tr></thead>
+    <tbody>
+    <tr *ngFor="let n of data">
+      <td>{{ n.title }}</td>
+      <td>{{ n.originalFilename }}</td>
+      <td>{{ n.uploadedAt | date:'medium' }}</td>
+      <td>{{ n.uploaderName }}</td>
+      <td class="right">
+        <button mat-stroked-button color="primary" (click)="dl(n)">Download</button>
+        <button mat-stroked-button color="warn" *ngIf="auth.hasRole('LECTURER') || auth.hasRole('ADMIN')" (click)="rm(n)">Delete</button>
+      </td>
+    </tr>
+    <tr *ngIf="!data.length"><td colspan="5" class="muted">No notes uploaded yet.</td></tr>
+    </tbody>
+  </table>
+</mat-card>

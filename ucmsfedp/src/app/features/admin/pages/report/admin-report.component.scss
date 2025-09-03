@@ -1,0 +1,9 @@
+:host { display:block; color:#0f172a; }
+.metrics { display:grid; grid-template-columns: repeat(4, minmax(160px,1fr)); gap:12px; margin:12px 0; }
+.metric { background:#fff; border:1px solid #e5e7eb; border-radius:12px; }
+.kpi { padding:14px; }
+.kpi .num { font-size:24px; font-weight:800; color:#0f172a; }
+.kpi .lbl { color:#64748b; font-size:12px; }
+.panel { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:8px; }
+.notes { width:100%; border-collapse: collapse; }
+.notes th, .notes td { padding:10px; border-bottom:1px solid #eef2f7; }

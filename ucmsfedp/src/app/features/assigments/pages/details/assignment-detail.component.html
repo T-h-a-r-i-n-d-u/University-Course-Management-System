@@ -1,0 +1,62 @@
+
+<div class="header">
+  <div>
+    <h2 class="title">{{ a?.title }}</h2>
+    <div class="meta">
+      <span>Deadline: <strong>{{ a?.deadline | date:'medium' }}</strong></span>
+      <span *ngIf="a?.createdAt">Created: {{ a?.createdAt | date:'medium' }}</span>
+    </div>
+  </div>
+</div>
+
+<mat-card class="panel">
+  <mat-card-content>
+    <div class="desc" [innerText]="a?.description || 'No description.'"></div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Student submission area -->
+<mat-card class="panel" *ngIf="auth.hasRole('STUDENT')">
+  <mat-card-header><mat-card-title>Your submission</mat-card-title></mat-card-header>
+  <mat-card-content>
+    <div *ngIf="mySubmission; else uploadBox">
+      <p><strong>File:</strong> {{ mySubmission.originalFilename }} ({{ mySubmission.size | number }} bytes)</p>
+      <p><strong>Submitted:</strong> {{ mySubmission.submittedAt | date:'medium' }}</p>
+      <p *ngIf="mySubmission.marks != null"><strong>Marks:</strong> {{ mySubmission.marks }}</p>
+      <p *ngIf="mySubmission.feedback"><strong>Feedback:</strong> {{ mySubmission.feedback }}</p>
+      <button mat-stroked-button (click)="dl(mySubmission)">Download</button>
+    </div>
+    <ng-template #uploadBox>
+      <input type="file" (change)="onFile($event)">
+      <button mat-raised-button color="primary" [disabled]="uploading || !selectedFile" (click)="submit()">Submit</button>
+    </ng-template>
+  </mat-card-content>
+</mat-card>
+
+<!-- Lecturer review table -->
+<mat-card class="panel" *ngIf="auth.hasRole('LECTURER') || auth.hasRole('ADMIN')">
+  <mat-card-header><mat-card-title>Submissions</mat-card-title></mat-card-header>
+  <mat-card-content>
+    <table class="tab" *ngIf="!subsLoading">
+      <thead><tr><th>Student</th><th>File</th><th>Submitted</th><th>Marks</th><th>Feedback</th><th>Actions</th></tr></thead>
+      <tbody>
+      <tr *ngFor="let s of subs">
+        <td>{{ s.studentName }}</td>
+        <td><a (click)="dl(s)" style="cursor:pointer">{{ s.originalFilename }}</a></td>
+        <td>{{ s.submittedAt | date:'medium' }}</td>
+        <td>
+          <input type="number" min="0" max="100" [value]="s.marks || 0" #m>
+        </td>
+        <td>
+          <input type="text" [value]="s.feedback || ''" #f>
+        </td>
+        <td>
+          <button mat-stroked-button color="primary" (click)="grade(s, m.value, f.value)">Save</button>
+        </td>
+      </tr>
+      <tr *ngIf="!subs.length"><td colspan="6" class="muted">No submissions yet.</td></tr>
+      </tbody>
+    </table>
+    <div *ngIf="subsLoading">Loading…</div>
+  </mat-card-content>
+</mat-card>

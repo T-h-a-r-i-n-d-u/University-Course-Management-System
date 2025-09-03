@@ -1,0 +1,14 @@
+:host { display: block; color: #0f172a; }
+
+.panel {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.form { display: grid; gap: 12px; }
+
+.actions {
+  display: flex; gap: 8px; justify-content: flex-end;
+}
