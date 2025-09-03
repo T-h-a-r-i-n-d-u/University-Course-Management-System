@@ -11,7 +11,7 @@ It enables **Administrators, Lecturers, and Students** to collaborate on course 
 - Request enrollment into courses
 - Access lecture notes
 - Submit assignment answers
-- View results and feedback
+- View results and lecturer feedback
 
 ### 👨‍🏫 Lecturers
 - Manage assigned courses
@@ -23,16 +23,16 @@ It enables **Administrators, Lecturers, and Students** to collaborate on course 
 - Approve/reject user registrations
 - Approve/reject course enrollments
 - Assign lecturers to courses
-- Generate reports on users, courses, and results
+- Generate detailed reports on users, courses, and results
 
 ---
 
 ## 🖼️ System Overview
 
 ### Database Design
-![Database Diagram](./db.png)
+The system follows a relational model linking **users, courses, enrollments, assignments, submissions, lecture notes, and results**.
 
-Entity-relationships cover **users, courses, enrollments, assignments, submissions, lecture notes, and results**, with clear links for academic workflows.
+![Database Diagram](./db.png)
 
 ---
 
@@ -45,5 +45,21 @@ Entity-relationships cover **users, courses, enrollments, assignments, submissio
 
 ---
 
-## 📂 Project Structure
 
+## ⚡ Project Setup
+
+### 🔹 Prerequisites
+Make sure you have installed:
+- [Node.js](https://nodejs.org/) (v20+)
+- [Angular CLI](https://angular.io/cli)
+- [Java JDK](https://adoptium.net/) (17+)
+- [Maven](https://maven.apache.org/) (3.9+)
+- [Docker](https://docs.docker.com/get-docker/)
+
+---
+### 🔹 For Build
+
+-  docker compose build 
+-  docker-compose up --build
+
+---
